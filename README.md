@@ -10,6 +10,13 @@ HiCociety, as a network-based analysis tool for 3D chromatin conformation captur
 In addition, it provides a function that **compares module connectivities*** from two Hi-C datasets.
 
 ## The Usage
+
+# --------------------------------------
+### 0. Installaltion
+# --------------------------------------
+<br>
+install.packages('Hicociety')
+
 # --------------------------------------
 ### 1. Finding modules
 # --------------------------------------
