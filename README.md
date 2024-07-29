@@ -15,17 +15,28 @@ In addition, it provides a function that **compares module connectivities*** fro
 # --------------------------------------
 
 myhic = get_example_hic_file();
+<br>
 mycom = hic2community(fname=myhic, chr="19", resol=5000, nbprob=0.975, farthest=2000000, par.noise = 1, network.cluster.method = 'louvain')
+<br>
 head(mycom$ModuleSummary)
-
+<br>
+<br>
 where,
+<br>
 fname : Path to Hi-C data
+<br>
 chr : Chromosome numbers to test/ e.g., c(1,2,3,4,5)
+<br>
 resol : Reolution of Hi-C data
+<br>
 nbprob : Negative binomial probability of chromatin contact
+<br>
 farthest : Searching limit of 1D distance of contact pair
+<br>
 par.noise : Noise removal parameter (default = 1)
+<br>
 network.cluster.method = 'louvain' or 'label.prop'
+<br>
 # --------------------------------------
 ### 2. Visualization of module
 # --------------------------------------
