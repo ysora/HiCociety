@@ -16,6 +16,7 @@ In addition, it provides a function that **compares module connectivities*** fro
 # --------------------------------------
 <br>
 install.packages('Hicociety')
+<br>
 library(HiCociety)
 
 # --------------------------------------
