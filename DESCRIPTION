@@ -1,0 +1,35 @@
+Package: HiCociety
+Type: Package
+Title: HiCociety creates modules of chromatin interaction from chromatin conformation capture based data
+Version: 0.1.1
+Author: Sora Yoon, PhD
+Maintainer: Sora Yoon <yourself@somewhere.net>
+Description: It creates HiC network of nodes forming significant contacts, and clusters the network to create chromatin interaction modules.
+    Also, it compares the connectivity of modules from two HiC dataset.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Imports:
+    strawr,
+    fitdistrplus, 
+    igraph, 
+    Sushi, 
+    ggraph,
+    foreach,
+    doParallel,
+    biomaRt,
+    GenomicRanges,
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    TxDb.Mmusculus.UCSC.mm10.knownGene,
+    org.Mm.eg.db,
+    org.Hs.eg.db,
+    Rcpp,
+    AnnotationDbi,
+    GenomicFeatures,
+    parallel,
+    IRanges,
+    S4Vectors,
+    BiocManager
+LinkingTo:
+    Rcpp
