@@ -11,17 +11,14 @@ In addition, it provides a function that **compares module connectivities*** fro
 
 ## The Usage
 
-# --------------------------------------
+
 ### 0. Installaltion
-# --------------------------------------
 <br>
 install.packages('Hicociety')
 <br>
 library(HiCociety)
 
-# --------------------------------------
 ### 1. Finding modules
-# --------------------------------------
 
 myhic = get_example_hic_file();
 <br>
@@ -46,9 +43,7 @@ par.noise : Noise removal parameter (default = 1)
 <br>
 network.cluster.method = 'louvain' or 'label.prop'
 <br>
-# --------------------------------------
 ### 2. Visualization of module
-# --------------------------------------
 visualizeModule(
 <br>
   hicpath = myhic,
