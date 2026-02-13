@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #' Check if a package is installed
 #'
 #' This function checks whether a package is installed. If the package is not installed, it informs the user that the package is missing.
@@ -21,52 +20,6 @@ check_package <- function(package) {
   }
 }
 
-=======
-options(scipen = 100)
-
-#' Example download
-#'
-#' This function downloads an example Hi-C file from chromosome 19 of mice (mm10) Th1 cells.
-#'
-#' @description It downloads example Hi-C dataset.
-#' @param destfile Path to save the example Hi-C file
-#' @return Hi-C file download at destfile.
-#' @examples
-#' # Not run
-#' # get_example_hic_file('./example.hic')
-#' @export
-get_example_hic_file <- function(destfile = "example.hic") {
-  url <- "https://github.com/ysora/HiCociety/raw/main/example.hic"
-  if (!file.exists(destfile)) {
-    message("Downloading example.hic file...")
-    utils::download.file(url, destfile, mode = "wb")
-  } else {
-    message("Example .hic file already exists.")
-  }
-  return(destfile)
-}
-
-#' Pakcage install and load
-#'
-#' Loading a package
-#'
-#' @author Sora Yoon, PhD
-#' @description It loads a package.
-#' @param package package name
-#' @import BiocManager
-#' @importFrom utils getFromNamespace install.packages
-install_and_load <- function(package) {
-  # Check if the package is installed
-  if (!requireNamespace(package, quietly = TRUE)) {
-    # If not installed, install it using BiocManager
-    if (!requireNamespace("BiocManager", quietly = TRUE))
-      install.packages("BiocManager")
-    BiocManager::install(package)
-  }
-  # Load the package
-  library(package, character.only = TRUE)
-}
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 
 #' Get contact Frequency
 #'
@@ -77,7 +30,6 @@ install_and_load <- function(package) {
 #' @param fname .hic data for any types of genome conformation capture data
 #' @param chr Chromosome number of network extraction
 #' @param resol DNA basepair Resolution. Default=10000
-<<<<<<< HEAD
 #' @return A \code{data.frame} containing three columns: \code{x} and \code{y} (genomic coordinate pairs), and \code{counts} (the contact frequency between them).
 #' @import strawr
 #' @import HiCocietyExample
@@ -85,13 +37,6 @@ install_and_load <- function(package) {
 #' myhic=system.file('extdata', 'example.hic', package ='HiCocietyExample')
 #' A = getContactFrequency(myhic,19,5000)
 #' head(print(A))
-=======
-#' @import strawr
-#' @examples
-#' # Not run
-#' # myhic=get_example_hic_file()
-#' # getContactFrequency(myhic,19,5000)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @export
 getContactFrequency <- function(fname, chr, resol){
   chr <- as.character(chr)
@@ -109,23 +54,16 @@ getContactFrequency <- function(fname, chr, resol){
 #' @param farthest Maximum 1-D distance to search. Default=2Mb
 #' @param resol Hi-C resolution for test. Default = 10000
 #' @param prob Significance cutoff for negative binomial distribution. Default =0.975
-<<<<<<< HEAD
 #' @param n_cores The number of cores used for parallel computing. If set as NULL, n_cores is automatically set to the number of cores in the computer if it is not exceed 30. If it is more than 30, it is set as 30. Default = NULL
 #' @return A \code{list} containing three objects: \code{AREA}, \code{original}, and \code{len1}, representing the statistical significance of each chromatin interaction pair.
 #' @import parallel
 #' @import doParallel
 #' @import foreach
 #' @import HiCocietyExample
-=======
-#' @import parallel
-#' @import doParallel
-#' @import foreach
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @importFrom Rcpp sourceCpp
 #' @import fitdistrplus
 #' @importFrom stats pnbinom
 #' @examples
-<<<<<<< HEAD
 #' # This example might take a long time to run, so we wrap it in donttest{}
 #' \donttest{
 #' myhic = system.file('extdata','example.hic',package = 'HiCocietyExample')
@@ -135,35 +73,21 @@ getContactFrequency <- function(fname, chr, resol){
 #' }
 #' @export
 getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob, n_cores = NULL) {
-=======
-#' # Not run
-#' # myhic=get_example_hic_file();
-#' # mydf=getContactFrequency(myhic, 19, 5000);
-#' # myprob=getContactProbability(mydf,farthest=2000000, resol=5000,prob=0.975);
-#' @export
-getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob) {
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   bin1 = bin2 = cnt = c()
   AREA <- list()
-
+  
   # Detect number of cores
-<<<<<<< HEAD
   if(is.null(n_cores))
   {
     n_cores <- parallel::detectCores() - 1
     if (n_cores > 30) n_cores <- 30
     if (n_cores <= 0) n_cores <- 1
   }
-=======
-  n_cores <- parallel::detectCores() - 1
-  if (n_cores > 30) n_cores <- 30
-  if (n_cores <= 0) n_cores <- 1
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
-
+  
   # Create cluster and register parallel backend
   cl <- parallel::makeCluster(n_cores)
   doParallel::registerDoParallel(cl)
-
+  
   # Define the function for unique pairs
   UniqueTwo <- function(vec1, vec2) {
     a <- paste(vec1, vec2, sep = "_")
@@ -173,7 +97,7 @@ getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob) 
     res2 <- ab[2, ]
     return(list(uniVec1 = res1, uniVec2 = res2))
   }
-
+  
   # Run the parallel processing
   A <- foreach::foreach(mylen = seq(0, farthest, resol), .combine = 'c', .init = list(list()),
                         .packages = c('fitdistrplus', 'stats')) %dopar% {
@@ -188,15 +112,15 @@ getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob) 
                           AA <- list(list(contactfreq = ABD$uniVec1, prob = ABD$uniVec2))
                           list(Area = AA, bin1 = tab$x[sameD][sigarea], bin2 = tab$y[sameD][sigarea], cnt = area[sigarea])
                         }
-
-
+  
+  
   # Stop the cluster
   parallel::stopCluster(cl)
   sizeA = (length(A)-1)/4
   AREAindex = (0:(sizeA-1))*4+2
   AREA = A[AREAindex]
   names(AREA) <- seq(0,farthest,resol)
-
+  
   bin1index = (0:(sizeA-1))*4+3
   bin1 = unlist(A[bin1index], use.names = F)
   bin2index = (0:(sizeA-1))*4+4
@@ -204,33 +128,12 @@ getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob) 
   cntindex = (0:(sizeA-1))*4+5
   cnt = unlist(A[cntindex],use.names=F)
   #names(AREA) = seq(0,farthest,resol)
-
+  
   LB = length(bin1)
-
+  
   return(list(AREA=AREA, original=data.frame(x=bin1,y=bin2,counts=cnt), len1=LB))
 }
 
-<<<<<<< HEAD
-=======
-# #' Prune Network
-# #'
-# #' Prune Network
-# #'
-# pruneNet <- function(net){
-#   halfOfAverageConnectivity <- length(E(net)) / length(V(net))
-#   nodedegrees <- degree(net)
-#   to_delete <- which(nodedegrees < halfOfAverageConnectivity)
-#   if(length(to_delete)>0){
-#     delname <- names(nodedegrees)[to_delete]
-#     prune <- delete_vertices(net, delname)
-#     return(prune)
-#   }else{
-#     return(net)
-#   }
-#
-# }
-
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' HiC to network data format
 #'
 #' Convert HiC to network data format
@@ -238,7 +141,6 @@ getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob) 
 #' @author Sora Yoon, PhD
 #' @description It converts Hi-C dataframe to network object.
 #' @param ftab three-column data composed of locus1, locus2 and value
-<<<<<<< HEAD
 #' @return An \code{igraph} object representing statistically significant chromatin interactions.
 #' @import HiCocietyExample
 #' @examples
@@ -249,14 +151,6 @@ getContactProbability <- function(tab, farthest = 2000000, resol = 10000, prob) 
 #' net = hic2network(ftab[1:100,]);
 #' plot(net)
 #' }
-=======
-#' @examples
-#' # Not run
-#' # myhic=get_example_hic_file();
-#' # ftab=getContactFrequency(paste0('./',myhic),19,5000);
-#' # net = hic2network(ftab[100:200,]);
-#' # plot(net)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @useDynLib HiCociety
 #' @export
 hic2network <- function(ftab){
@@ -275,20 +169,11 @@ hic2network <- function(ftab){
 #' @param resol Integer specifying the HiC resolution.
 #' @return A numeric vector of average counts.
 #' @examples
-<<<<<<< HEAD
 #' x <- c(1, 2, 3, 4, 5)
 #' y <- c(1, 2, 3, 4, 5)
 #' counts <- c(10, 20, 30, 40, 50)
 #' resol <- 10000
 #' calculate_avg_count(x, y, counts, resol)
-=======
-#' # Nor run
-#' # x <- c(1, 2, 3, 4, 5)
-#' # y <- c(1, 2, 3, 4, 5)
-#' # counts <- c(10, 20, 30, 40, 50)
-#' # resol <- 10000
-#' # calculate_avg_count(x, y, counts, resol)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @export
 calculate_avg_count <- function(x, y, counts, resol) {
   .Call('_HiCociety_calculate_avg_count', x, y, counts, resol)
@@ -303,18 +188,11 @@ calculate_avg_count <- function(x, y, counts, resol) {
 #' @author Sora Yoon, PhD
 #' @description It retrieves all chromosome names having longer than 2.5Mbp.
 #' @param fname Path to .hic file
-<<<<<<< HEAD
 #' @import HiCocietyExample
 #' @return A character vector containing the names of chromosomes whose genomic lengths exceed 2.5 Mbp.
 #' @examples
 #' myhic=system.file('extdata', 'example.hic', package ='HiCocietyExample')
 #' get_all_chr_names(myhic)
-=======
-#' @examples
-#' # Not run
-#' # myhic=get_example_hic_file();
-#' # get_all_chr_names(myhic)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @export
 get_all_chr_names = function(fname)
 {
@@ -332,16 +210,11 @@ get_all_chr_names = function(fname)
 #' @author Sora Yoon, PhD
 #' @description It generates a list of graph of significant interactions, module table and module elements.
 #' @param fname  Path to .hic file
-<<<<<<< HEAD
 #' @param chr    chromosome numbers to run.
-=======
-#' @param chr    chromosome numbersto run.
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @param resol  Resolution of Hi-C data
 #' @param nbprob  Negative binomial probability. Higher value gives smaller number of stronger interaction.
 #' @param farthest  The maximum searching distance between two nodes
 #' @param par.noise Parameter for noise removal. Default is 1, higher value gives more filtered interactions.
-<<<<<<< HEAD
 #' @param network.cluster.method Can select between 'louvain' as default and 'label_prop' which means the label propagation method.
 #' @param n_cores The number of cores used for parallel computing. If set as NULL, n_cores is automatically set to the number of cores in the computer if it is not exceed 30. If it is more than 30, it is set as 30. Default = NULL
 #' @return A \code{list} containing three elements: \code{Graphs} (an \code{igraph} object representing significant chromatin interactions for each chromosome), \code{ModuleSummary} (a \code{data.frame} containing information about chromatin interaction modules), and \code{ModuleElements} (a \code{list} of nodes forming significant chromatin interactions within each module).
@@ -359,28 +232,15 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
   old_opts = options("scipen")
   on.exit(options(old_opts), add = TRUE)
   options(scipen = 999)
-=======
-#' @param network.cluster.method Can select between 'louvain' as default and 'label.prop' which means the label propagation method.
-#' @import igraph
-#' @examples
-#' # Not run
-#' # myhic = get_example_hic_file();
-#' # mycom = hic2community(myhic, "19", 5000, 0.975, 2000000, par.noise=1, 'louvain')
-#' @export
-hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, network.cluster.method = 'louvain'){
-
-  set.seed(1)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   chr = as.character(chr)
   totalNet = list()
   totalInfo  = data.frame(chr=character(), module_start = character(), module_end = character())
   totalModule = list()
   for(ch in chr)
   {
-<<<<<<< HEAD
     message("Chromosome: ",ch,"\n")
     tab <- getContactFrequency(fname, ch, resol)
-
+    
     message("--------Contact frequency table has been loaded (1/5)-------\n")
     fetab <- getContactProbability(tab, farthest, resol=resol, prob=nbprob, n_cores = n_cores)
     ftab_orig<-fetab$original
@@ -388,19 +248,7 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
     ftab_orig_cnt= merge(tab, ftab_orig, by=c('x','y'))
     ftab_orig_cnt$counts = ftab_orig_cnt$counts.x
     ftab_orig_cnt$avg_count <- calculate_avg_count(ftab_orig_cnt$x, ftab_orig_cnt$y, ftab_orig_cnt$counts, resol = resol)
-=======
-    cat("Chromosome: ",ch,"\n")
-    tab <- getContactFrequency(fname, ch, resol)
-
-    cat("--------Contact frequency table has been loaded (1/5)--------")
-    fetab <- getContactProbability(tab, farthest, resol=resol, prob=nbprob)
-    ftab_orig<-fetab$original
-    cat("--------Contact probability estimation is completed (2/5)--------")
-    ftab_orig_cnt= merge(tab, ftab_orig, by=c('x','y'))
-    ftab_orig_cnt$counts = ftab_orig_cnt$counts.x
-    ftab_orig_cnt$avg_count <- calculate_avg_count(ftab_orig_cnt$x, ftab_orig_cnt$y, ftab_orig_cnt$counts)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
-
+    
     min_c = min(tab$x)
     max_c = max(tab$y)
     width_hic = ((max_c - min_c)/resol) + 1
@@ -409,7 +257,6 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
     c_area = sum(tab$counts[which(abs(tab$x-tab$y) < farthest)])
     acf1 = c_area / area_hic
     df = ftab_orig_cnt[which(ftab_orig_cnt$avg_count> par.noise*acf1),]
-<<<<<<< HEAD
     message("--------Noise filtering is completed (3/5)--------\n")
     net <- hic2network(df)
     message("--------Significant interaction network is generated (4/5)--------\n")
@@ -417,15 +264,6 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
     }else if(network.cluster.method== 'label_prop'){ A = cluster_label_prop(as.undirected(net))
     }else{stop("Choose network.cluster.method between 'louvain' and 'label_prop'.")}
     message("--------Clustering data have been generated (5/5)--------\n")
-=======
-    cat("--------Noise filtering is completed (3/5)--------")
-    net <- hic2network(df)
-    cat("--------Significant interaction network is generated (4/5)--------")
-    if(network.cluster.method == 'louvain'){A = cluster_louvain(as.undirected(net))
-    }else if(network.cluster.method== 'label_prop'){ A = cluster_label_prop(as.undirected(net))
-    }else{stop("Choose network.cluster.method between 'louvain' and 'label_prop'.")}
-    cat("--------Clustering data have been generated (5/5)--------")
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
     modu=sapply(1:max(A$membership), function(x) sort(as.numeric(A$names[which(A$membership==x)])))
     modu = modu[which(lapply(modu,length)>3)]
     modu2 <- lapply(modu, function(x){x = as.character(x); g1=subgraph(net,x);return(names(V(g1)))})
@@ -438,14 +276,10 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
     totalModule = append(totalModule, modu2)
   }
   names(totalNet) = paste0("graph_",chr)
-
+  
   # Gene name - add_Genes
   # Connectivity
-<<<<<<< HEAD
   message('Start to estimate connectivity, transitivity and centrality node.\n')
-=======
-  cat('Start to estimate connectivity, transitivity and centrality node.\n')
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   pt = proc.time()
   CON = c()
   TRA = c()
@@ -466,17 +300,13 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
     EV  = append(EV , ev)
   }
   timetaken=proc.time() - pt
-<<<<<<< HEAD
   message('Elapsed time : ', timetaken[3], 's', sep="")
-=======
-  cat('Elapsed time : ', timetaken[3], 's', sep="")
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   totalInfo$connectivity = CON
   totalInfo$transitivity = TRA
   totalInfo$centrality_node=EV
-
+  
   ord = order(totalInfo$connectivity, decreasing = T)
-
+  
   totalInfo=totalInfo[ord,]
   totalModule=totalModule[ord]
   return(list(Graphs=totalNet, ModuleSummary = totalInfo, ModuleElements =totalModule))
@@ -488,10 +318,7 @@ hic2community <- function(fname, chr, resol, nbprob, farthest, par.noise = 1, ne
 #'
 #' @author Sora Yoon, PhD
 #' @description It finds all available Txdb packages used in add_Genes function.
-<<<<<<< HEAD
 #' @return A character vector containing the names of all available TxDb packages.
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @examples
 #' get_txdb()
 #' @importFrom AnnotationDbi mapIds
@@ -511,7 +338,6 @@ get_txdb = function()
 #' @description This function adds a column with a list of genes included in each locus to the ModuleSummary data frame of the hic2community function.
 #' @param df The ModuleSummary data frame obtained by running hic2community function
 #' @param speciesObj Any Txdb package name corresponding
-<<<<<<< HEAD
 #' @return A \code{data.frame} identical to the input, with an additional \code{"Genes"} column. Each entry in this column lists the gene(s) that overlap with the corresponding genomic region. If multiple genes are present, they are concatenated with commas.
 #' @importFrom IRanges IRanges
 #' @importFrom GenomicRanges GRanges findOverlaps pintersect makeGRangesFromDataFrame width
@@ -523,15 +349,6 @@ get_txdb = function()
 #' mycom = readRDS(modulefile)
 #' mycom$ModuleSummary = add_Genes(mycom$ModuleSummary,
 #' 'TxDb.Mmusculus.UCSC.mm10.knownGene')
-=======
-#' @importFrom IRanges IRanges
-#' @importFrom GenomicRanges GRanges findOverlaps pintersect makeGRangesFromDataFrame width
-#' @examples
-#' # Not run
-#' # myhic = get_example_hic_file();
-#' # mycom = hic2community(myhic, "19", 5000, 0.975, 2000000, par.noise=1, 'louvain')
-#' # mycom$ModuleSummary = add_Genes(mycom$ModuleSummary, 'TxDb.Mmusculus.UCSC.mm10.knownGene')
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @importFrom AnnotationDbi mapIds
 #' @importFrom S4Vectors queryHits subjectHits
 #' @export
@@ -540,19 +357,19 @@ add_Genes <- function(df, speciesObj) {
   if (substr(df$chr[1], 1, 1) != "c") {
     df$chr <- paste0("chr", df$chr)
   }
-
+  
   # Create a GRanges object
   gr <- GRanges(
     seqnames = df$chr,
     ranges = IRanges(start = as.numeric(df$module_start), end = as.numeric(df$module_end))
   )
-
+  
   # Load the TxDb package dynamically
   if (!requireNamespace(speciesObj, quietly = TRUE)) {
     stop(paste("Package", speciesObj, "not found"))
   }
   txdb <- getFromNamespace(speciesObj, asNamespace(speciesObj))
-
+  
   # Define a mapping between TxDb and org packages
   org_mapping <- list(
     "TxDb.Hsapiens.UCSC.hg38.knownGene" = "org.Hs.eg.db",
@@ -571,15 +388,14 @@ add_Genes <- function(df, speciesObj) {
     "TxDb.Sscrofa.UCSC.susScr11.refGene" = "org.Ss.eg.db",
     "TxDb.Xlaevis.UCSC.xenTro9.refGene" = "org.Xl.eg.db"
   )
-
+  
   # Get the corresponding org package name
   orgPkg <- org_mapping[[speciesObj]]
-
+  
   # Load the org package dynamically
-<<<<<<< HEAD
   orgdb <- NULL
   packagecheck <- check_package(orgPkg)
-
+  
   if (packagecheck) {
     # Try to get the OrgDb object from the package namespace
     orgdb <- tryCatch({
@@ -591,65 +407,33 @@ add_Genes <- function(df, speciesObj) {
   } else {
     warning(sprintf("Package '%s' not found. Please install and load a proper package. Gene symbols will not be annotated.", orgPkg))
   }
-
+  
   Genes <- genes(txdb)
   overlaps <- findOverlaps(gr, Genes)
-
+  
   # Get gene IDs
   if (length(overlaps) == 0) {
     warning("No overlaps found. No gene annotations will be added.")
     df$Genes <- NA
   } else {
     gene_ids <- Genes$gene_id[subjectHits(overlaps)]
-
+    
     if (!is.null(orgdb) && length(gene_ids) > 0) {
       gene_symbols <- mapIds(orgdb, keys = gene_ids, column = "SYMBOL", keytype = "ENTREZID", multiVals = "first")
     } else {
       gene_symbols <- gene_ids
     }
-
+    
     # Add Genes column
     df$Genes <- sapply(seq_len(nrow(df)), function(i) {
       overlapping_genes <- gene_symbols[queryHits(overlaps) == i]
       if (length(overlapping_genes) > 0) paste(overlapping_genes, collapse = ",") else NA
     })
   }
-=======
-  install_and_load(orgPkg)
-  if (!is.null(orgPkg) && requireNamespace(orgPkg, quietly = TRUE)) {
-    orgdb <- get(orgPkg)
-  } else {
-    warning(paste("Package", orgPkg, "not found. Gene symbols will not be annotated."))
-    orgdb <- NULL
-  }
-
-  # Find genes and overlaps
-  genes <- genes(txdb)
-  overlaps <- findOverlaps(gr, genes)
-
-  # Get gene IDs
-  gene_ids <- genes$gene_id[subjectHits(overlaps)]
-
-  if (!is.null(orgdb)) {
-    # Get gene symbols if org package is loaded
-    gene_symbols <- mapIds(orgdb, keys = gene_ids, column = "SYMBOL", keytype = "ENTREZID", multiVals = "first")
-  } else {
-    # Use gene IDs as symbols if org package is not loaded
-    gene_symbols <- gene_ids
-  }
-
-  # Add Genes column to the data frame
-  df$Genes <- sapply(seq_len(nrow(df)), function(i) {
-    overlapping_genes <- gene_symbols[queryHits(overlaps) == i]
-    paste(overlapping_genes, collapse = ",")
-  })
-
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   return(df)
 }
 
 
-<<<<<<< HEAD
 #' Connectivity difference between two conditions
 #'
 #' Connectivity difference between two conditions
@@ -685,10 +469,10 @@ ConnectivityDiff <- function(wt, ko, prefix.wt, prefix.ko, resolution = 5000)
   options(scipen = 999)
   wt.dat = wt$ModuleSummary
   ko.dat = ko$ModuleSummary
-
+  
   wt.graph = wt$Graphs
   ko.graph = ko$Graphs
-
+  
   # for modules in condition 1 (wt)
   chrlist = wt.dat$chr
   strlist = wt.dat$module_start
@@ -699,7 +483,7 @@ ConnectivityDiff <- function(wt, ko, prefix.wt, prefix.ko, resolution = 5000)
     ch = chrlist[i]
     st = strlist[i]
     en = endlist[i]
-
+    
     ko.graph.sel = ko.graph[[paste0('graph_', ch)]]
     allNodes = seq(st,en,resolution)
     selNodes = intersect(as.character(allNodes), names(V(ko.graph.sel)))
@@ -716,29 +500,29 @@ ConnectivityDiff <- function(wt, ko, prefix.wt, prefix.ko, resolution = 5000)
     ch = chrlist[i]
     st = strlist[i]
     en = endlist[i]
-
+    
     wt.graph.sel = wt.graph[[paste0('graph_', ch)]]
     allNodes = seq(st,en,resolution)
     selNodes = intersect(as.character(allNodes), names(V(wt.graph.sel)))
     sg = subgraph(wt.graph.sel, vids = selNodes)
     con.wt = c(con.wt, length(E(sg)))
   }
-
+  
   wt.dat[['idx']] = 1:nrow(wt.dat)
   ko.dat[['idx']] = 1:nrow(ko.dat)
-
+  
   wt.dat[[paste0('connectivity_in_', prefix.ko)]] = con.ko
   ko.dat[[paste0('connectivity_in_', prefix.wt)]] = con.wt
-
+  
   wt.dat$connectivity_difference = wt.dat$connectivity - con.ko
   wt.dat$connectivity_foldchange = (wt.dat$connectivity+1)/(con.ko+1)
-
+  
   ko.dat$connectivity_difference = ko.dat$connectivity - con.wt
   ko.dat$connectivity_foldchange = (ko.dat$connectivity+1) / (con.wt+1)
-
+  
   wt.dat = wt.dat[order(wt.dat$connectivity_difference, decreasing=T),]
   ko.dat = ko.dat[order(ko.dat$connectivity_difference, decreasing=T),]
-
+  
   return(list(wt = wt.dat, ko = ko.dat))
 }
 
@@ -776,82 +560,6 @@ getElbowPoint = function(numbers)
   abs_dy_smooth = sgolayfilt(abs(dy_smooth),p=3,n=11)
   target_idx = which.min(abs(1-abs_dy_smooth))
   return(list(index = df$x[target_idx], ConnectivityCutoff = df$y[target_idx]))
-=======
-#' Rank difference between two conditions
-#'
-#' Rank difference between two conditions
-#'
-#' @author Sora Yoon, PhD
-#' @description output table of rank difference of modules between cell types is generated.
-#' @param wt hic2community result from condition 1
-#' @param ko hic2community result from condition 2
-#' @examples
-#' # Not run
-#' # RankDiff(mycom1, mycom2)
-#' @export
-RankDiff <- function(wt, ko)
-{
-  wt.dat = wt$ModuleSummary
-  ko.dat = ko$ModuleSummary
-
-  wt.range = GRanges(seqnames=wt.dat$chr, IRanges(start=as.numeric(wt.dat$module_start), end=as.numeric(wt.dat$module_end)), connectivity = wt.dat$connectivity, idx = 1:nrow(wt.dat), rank = order(wt.dat$connectivity, decreasing = T))
-  ko.range = GRanges(seqnames=ko.dat$chr, IRanges(start=as.numeric(ko.dat$module_start), end=as.numeric(ko.dat$module_end)), connectivity = ko.dat$connectivity, idx = 1:nrow(ko.dat), rank = order(ko.dat$connectivity, decreasing = T))
-
-  ov = findOverlaps(wt.range, ko.range)
-  ov_ratio = pintersect(wt.range[queryHits(ov)], ko.range[subjectHits((ov))])
-  width_ov = width(ov_ratio)
-  width_wt = width(wt.range[queryHits(ov)])
-  width_ko = width(ko.range[subjectHits(ov)])
-  min_width = apply(cbind(width_wt,width_ko),1,min)
-  ov_perc = width_ov/min_width
-  ov_wt = width_ov/width_wt
-  ov_ko = width_ov/width_ko
-  overlap_wt = wt.range[queryHits(ov)]
-  nooverlap_wt = setdiff(wt.range,overlap_wt)
-  #nooverlap_wt = wt.range[which(wt.range %in% nooverlap_wt)]
-  overlap_ko = ko.range[subjectHits(ov)]
-  nooverlap_ko = setdiff(ko.range,overlap_ko)
-  #nooverlap_ko = ko.range[which(ko.range %in% nooverlap_ko)]
-
-  score_overlap = abs(log(overlap_wt$rank) - log(overlap_ko$rank))
-  score_wt_only = abs(log(nooverlap_wt$rank)) # - log(length(wt.range)))
-  score_ko_only = abs(log(nooverlap_ko$rank)) # - log(length(ko.range)))
-
-  ovl = cbind(as.data.frame(overlap_wt), as.data.frame(overlap_ko), rank_diff=score_overlap, overlap_pixel = width_ov, overlap_perc_min = ov_perc, overlap_perc_cond1 = ov_wt, overlap_perc_cond2 = ov_ko)
-  wtonly =cbind(as.data.frame(nooverlap_wt), data.frame(seqnames=NA,start=NA,end=NA, width=NA, strand=NA, connectivity = 3,idx = NA, rank = length(nooverlap_wt), rank_diff=score_wt_only),overlap_pixel = NA, overlap_perc_min = NA, overlap_perc_cond1 = NA, overlap_perc_cond2 = NA)
-  koonly =cbind(data.frame(seqnames=NA,start=NA,end=NA, width=NA, strand=NA, connectivity = rep(3, length(nooverlap_ko)), idx = NA, rank = length(nooverlap_ko)), as.data.frame(nooverlap_ko), rank_diff=score_ko_only,overlap_pixel = NA, overlap_perc_min = NA, overlap_perc_cond1 = NA, overlap_perc_cond2 = NA)
-  res = rbind(ovl, wtonly, koonly)
-  res = res[order(res$rank_diff, decreasing=T),]
-  return(res)
-}
-
-#' Numbers to color vector
-#'
-#' Numbers to color vector
-#'
-#' @author Sora Yoon, PhD
-#' @description It maps numbers to colors.
-#' @param vec Numeric vector to be converted to the color vector
-#' @param col Colors to be mapped.
-#' @param num Length of sequence where the min and max are those from the truncated / or the original vectors
-#' @param range Truncated values' range
-maptocolors <- function(vec,col,num=100,range=NULL)
-{
-  if (is.null(range) == TRUE)
-  {
-    breaks <- seq(min(vec), max(vec),length.out=num)
-  }
-  if (is.null(range) == FALSE)
-  {
-    vec[which(vec < range[1])] = range[1]
-    vec[which(vec > range[2])] = range[2]
-    breaks <- seq(range[1], range[2],length.out=num)
-  }
-
-  cols <- col(length(breaks) + 1)
-  colvec = as.character(cut(vec, c(-Inf, breaks, Inf), labels=cols))
-  return(colvec)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 
 #' Visualization of module
@@ -871,20 +579,16 @@ maptocolors <- function(vec,col,num=100,range=NULL)
 #' @param arc.color Arc color
 #' @param nbnom.param Negative binomial probability cutoff. Higher cutoff gives less number of arcs.
 #' @param txdb Character. One of Txdb list obtained from get_txdb().
-<<<<<<< HEAD
 #' @param gene.strand.arrow.lwd Numeric. Line width of arrowhead indicating the strands of genes. Same as arr.lwd option in Arrows function in shape package.
 #' @param gene.strand.lwd Numeric. Line width of arrow body indicating the strands of genes. Same as lwd option in Arros function in shape package.
 #' @param col.forward.gene Character. Color of arrows within gene track for forward genes.
 #' @param col.reverse.gene Character. Color of arrows within gene track for reverse genes
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 #' @param highlight.centrality Boolean input to set if highlight eigenvector centrality node.
 #' @param highlight.cent.col The color of arcs stemming from the centrality node.
 #' @param highlight.node The coordiante of a node of which the user will highlight the arcs stemming from this node. Default=NULL
 #' @param highlight.node.col The color of arcs stemming from the node which the user highlight.
 #' @param show.sig.int Boolean. If TRUE, it marks significant contact on the triangle heatmap.
 #' @param netinfo Boolean. If TRUE, it shows network information of the module as text in the plot.
-<<<<<<< HEAD
 #' @return No return value; the function generates a plot.
 #' @import shape
 #' @importFrom grDevices colorRampPalette
@@ -917,7 +621,7 @@ maptocolors <- function(vec,col,num=100,range=NULL)
 visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm, heatmap.color.range=NULL, heatmap.color = colorRampPalette(c('white','red')),
                             arc.depth=10, arc.color = "gray80", nbnom.param=0.99, txdb = 'TxDb.Mmusculus.UCSC.mm10.knownGene', gene.strand.arrow.lwd = 3,
                             gene.strand.lwd = 6, col.forward.gene = 'purple', col.reverse.gene = 'pink', highlight.centrality=FALSE, highlight.cent.col=FALSE, highlight.node=NULL, highlight.node.col=NULL, show.sig.int=TRUE, netinfo){
-
+  
   old_par = par(no.readonly = TRUE)
   on.exit(par(old_par), add = TRUE)
   old_opts = options("scipen")
@@ -935,19 +639,13 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
       vec[which(vec > range[2])] = range[2]
       breaks <- seq(range[1], range[2],length.out=num)
     }
-
+    
     cols <- col(length(breaks) + 1)
     colvec = as.character(cut(vec, c(-Inf, breaks, Inf), labels=cols))
     return(colvec)
   }
-
+  
   N = as.numeric(moduleNum)
-=======
-#' @export
-visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm, heatmap.color.range=NULL, heatmap.color = colorRampPalette(c('white','red')), arc.depth=10, arc.color = "gray80", nbnom.param=0.99, txdb = TxDb.Mmusculus.UCSC.mm10.knownGene,highlight.centrality, highlight.cent.col, highlight.node=NULL, highlight.node.col, show.sig.int=TRUE, netinfo){
-
-  N = as.numeric(moduleNum) # 1
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   r = resolution
   chr = HC.object$ModuleSummary$chr[N]
   chr = gsub("chr","",chr)
@@ -962,21 +660,17 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
   min_val = min(myhic$x)
   max_val = max(myhic$y)
   cols = rows = seq(min_val, max_val, r)
-
+  
   graph.names = names(HC.object$Graphs)
   my.graph.name = paste('graph',chr,sep="_")
   graph.idx = which(graph.names == my.graph.name)
   tot.graph = HC.object$Graphs[[graph.idx]]
   my.compo = HC.object$ModuleElements[[N]]
   my.graph = subgraph(tot.graph, as.character(my.compo))
-<<<<<<< HEAD
   my.graph.dat = igraph::as_data_frame(my.graph)
-=======
-  my.graph.dat = as_data_frame(my.graph)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   filt.dat = my.graph.dat[which(my.graph.dat$counts.y > nbnom.param),]
-
-
+  
+  
   mymat = matrix(0, length(rows), length(cols))
   sigmat = matrix(FALSE, length(rows), length(cols))
   for(i in 1:nrow(myhic))
@@ -1000,7 +694,7 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
     min_z = min(hicm)
   }
   hicmcol = matrix(maptocolors(hicm, heatmap.color, num=100, range = c(min_z, max_z)), nrow = nrow(hicm))
-
+  
   # Empty plot
   plot(1,1,xlim=c(chromstart,chromend), ylim=c(0, max_y), type = 'n', xaxs = 'i', yaxs ='i', bty='n', xaxt='n', yaxt='n', xlab="",ylab="")
   # Fill plot
@@ -1028,15 +722,9 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
   tot.graph = HC.object$Graphs[[graph.idx]]
   my.compo = HC.object$ModuleElements[[N]]
   my.graph = subgraph(tot.graph, as.character(my.compo))
-<<<<<<< HEAD
   my.graph.dat = igraph::as_data_frame(my.graph)
   filt.dat = my.graph.dat[which(my.graph.dat$counts.y > nbnom.param),]
   message("size of filtered data is:", nrow(filt.dat))
-=======
-  my.graph.dat = as_data_frame(my.graph)
-  filt.dat = my.graph.dat[which(my.graph.dat$counts.y > nbnom.param),]
-  cat("size of filtered data is:", nrow(filt.dat))
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   start_points = list()
   end_points = list()
   for(i in 1:nrow(filt.dat))
@@ -1083,26 +771,17 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
     y <- center_y + radius * sin(theta)
     list(x = x, y = y)
   })
-
+  
   par(new=T)
   for (i in 1:nrow(filt.dat)) {
-<<<<<<< HEAD
     graphics::lines(arcs[[i]]$x, arcs[[i]]$y, col = arc.color, lwd = 1)
   }
   # Optionally, add the start and end points
   for (i in 1:nrow(filt.dat)) {
     graphics::points(start_points[[i]][1], start_points[[i]][2], pch = 16, col = arc.color)
     graphics::points(end_points[[i]][1], end_points[[i]][2], pch = 16, col = arc.color)
-=======
-    lines(arcs[[i]]$x, arcs[[i]]$y, col = arc.color, lwd = 1)
   }
-  # Optionally, add the start and end points
-  for (i in 1:nrow(filt.dat)) {
-    points(start_points[[i]][1], start_points[[i]][2], pch = 16, col = arc.color)
-    points(end_points[[i]][1], end_points[[i]][2], pch = 16, col = arc.color)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
-  }
-
+  
   if(highlight.centrality)
   {
     centra = HC.object$ModuleSummary$centrality_node[N]
@@ -1113,7 +792,7 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
       points(end_points[[i]][1], end_points[[i]][2], pch = 16, col = highlight.cent.col)
     }
   }
-
+  
   if(!is.null(highlight.node))
   {
     hl = highlight.node
@@ -1121,15 +800,9 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
     if(length(idx)==0){warning("No such nodes in the module interaction list.")
     }else{
       for(i in idx){
-<<<<<<< HEAD
         graphics::lines(arcs[[i]]$x, arcs[[i]]$y, col = highlight.node.col, lwd = 1)
         graphics::points(start_points[[i]][1], start_points[[i]][2], pch = 16, col = highlight.node.col)
         graphics::points(end_points[[i]][1], end_points[[i]][2], pch = 16, col = highlight.node.col)
-=======
-        lines(arcs[[i]]$x, arcs[[i]]$y, col = highlight.node.col, lwd = 1)
-        points(start_points[[i]][1], start_points[[i]][2], pch = 16, col = highlight.node.col)
-        points(end_points[[i]][1], end_points[[i]][2], pch = 16, col = highlight.node.col)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
       }
     }
   }
@@ -1139,11 +812,7 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
     seqnames = chr,
     ranges = IRanges(start = as.numeric(chromstart), end = as.numeric(chromend))
   )
-<<<<<<< HEAD
   if(is.null(txdb)){stop("Provide a proper txdb object.")}
-=======
-  if(is.null(txdb)){cat("Provide a proper txdb object."); exit(1)}
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   org_mapping <- list(
     "TxDb.Hsapiens.UCSC.hg38.knownGene" = "org.Hs.eg.db",
     "TxDb.Mmusculus.UCSC.mm10.knownGene" = "org.Mm.eg.db",
@@ -1161,15 +830,14 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
     "TxDb.Sscrofa.UCSC.susScr11.refGene" = "org.Ss.eg.db",
     "TxDb.Xlaevis.UCSC.xenTro9.refGene" = "org.Xl.eg.db"
   )
-
+  
   # Get the corresponding org package name
   orgPkg <- org_mapping[[txdb]]
-
-<<<<<<< HEAD
+  
   # Load the org package dynamically
   orgdb <- NULL
   packagecheck <- check_package(orgPkg)
-
+  
   if (packagecheck) {
     # Try to get the OrgDb object from the package namespace
     orgdb <- tryCatch({
@@ -1181,26 +849,12 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
   } else {
     warning(sprintf("Package '%s' not found. Please install and load a proper package. Gene symbols will not be annotated.", orgPkg))
   }
-
+  
   txdb <- getFromNamespace(txdb, asNamespace(txdb))
   Genes = genes(txdb)
   overlaps = findOverlaps(gr, Genes)
   gene_ids = Genes$gene_id[subjectHits(overlaps)]
   gene_rg = Genes[subjectHits(overlaps)]
-=======
-  install_and_load(orgPkg)
-  if (!is.null(orgPkg) && requireNamespace(orgPkg, quietly = TRUE)) {
-    orgdb <- get(orgPkg)
-  } else {
-    warning(paste("Package", orgPkg, "not found. Gene symbols will not be annotated."))
-    orgdb <- NULL
-  }
-  txdb <- getFromNamespace(txdb, asNamespace(txdb))
-  genes = genes(txdb)
-  overlaps = findOverlaps(gr, genes)
-  gene_ids = genes$gene_id[subjectHits(overlaps)]
-  gene_rg = genes[subjectHits(overlaps)]
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   gene_symbols = mapIds(orgdb, keys = gene_ids , column = "SYMBOL", keytype="ENTREZID", multiVals = "first")
   gene_rg$gene_symbol = gene_symbols
   abline(h=c(H + 2))
@@ -1210,26 +864,17 @@ visualizeModule <- function(hicpath, HC.object, moduleNum, resolution, hic.norm,
   text(x = coord_orig, y=H+4.5, labels = coord_write)
   text(x = chromstart+r, y = H+5.5, labels = chr)
   text(x = chromend-r, y = H+5.5, labels = "Mb")
-
+  
   for(g in 1:length(gene_rg))
   {
     tra = gene_rg[g]
-<<<<<<< HEAD
     st = GenomicRanges::start(tra)
     en = GenomicRanges::end(tra)
     gsy = tra$gene_symbol
     mystrands = as.character(tra@strand@values)
-
+    
     if(mystrands == "+"){shape::Arrows(x0 = st, x1 = en, y0 = H+8, y1 = H+8, arr.type = 'triangle', arr.lwd=gene.strand.arrow.lwd, lwd=gene.strand.lwd, col=col.forward.gene)}
     if(mystrands == "-"){shape::Arrows(x0 = en, x1 = st, y0 = H+8, y1 = H+8, arr.type = 'triangle', arr.lwd=gene.strand.arrow.lwd, lwd=gene.strand.lwd, col=col.reverse.gene)}
-=======
-    st = start(tra)
-    en = end(tra)
-    gsy = tra$gene_symbol
-    str = as.character(tra@strand@values)
-    if(str == "+"){Arrows(x0 = st, x1 = en, y0 = H+8, y1 = H+8, arr.type = 'triangle', arr.lwd=3,lwd=6, col='purple')}
-    if(str == "-"){Arrows(x0 = en, x1 = st, y0 = H+8, y1 = H+8, arr.type = 'triangle', arr.lwd=3,lwd=6, col='pink')}
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
     text(x = ((st + en)/2)-10000, y = H+11, labels = gsy)
   }
   if(netinfo)

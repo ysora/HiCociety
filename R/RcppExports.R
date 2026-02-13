@@ -2,10 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 calculate_avg_count <- function(x, y, counts, resol) {
-<<<<<<< HEAD
-    .Call('_HiCociety_calculate_avg_count', PACKAGE = 'HiCociety', x, y, counts, resol)
-=======
-    .Call(`_HiCociety_calculate_avg_count`, x, y, counts, resol)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
+  .Call('_HiCociety_calculate_avg_count', PACKAGE = 'HiCociety', x, y, counts, resol)
 }
 
