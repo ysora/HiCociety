@@ -6,12 +6,9 @@
 \usage{
 get_txdb()
 }
-<<<<<<< HEAD
 \value{
 A character vector containing the names of all available TxDb packages.
 }
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \description{
 It finds all available Txdb packages used in add_Genes function.
 }

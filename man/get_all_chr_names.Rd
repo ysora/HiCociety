@@ -9,12 +9,9 @@ get_all_chr_names(fname)
 \arguments{
 \item{fname}{Path to .hic file}
 }
-<<<<<<< HEAD
 \value{
 A character vector containing the names of chromosomes whose genomic lengths exceed 2.5 Mbp.
 }
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \description{
 It retrieves all chromosome names having longer than 2.5Mbp.
 }
@@ -22,14 +19,8 @@ It retrieves all chromosome names having longer than 2.5Mbp.
 To extract all chromosome names from .hic file
 }
 \examples{
-<<<<<<< HEAD
 myhic=system.file('extdata', 'example.hic', package ='HiCocietyExample')
 get_all_chr_names(myhic)
-=======
-# Not run
-# myhic=get_example_hic_file();
-# get_all_chr_names(myhic)
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 \author{
 Sora Yoon, PhD

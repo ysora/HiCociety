@@ -15,7 +15,6 @@ visualizeModule(
   arc.depth = 10,
   arc.color = "gray80",
   nbnom.param = 0.99,
-<<<<<<< HEAD
   txdb = "TxDb.Mmusculus.UCSC.mm10.knownGene",
   gene.strand.arrow.lwd = 3,
   gene.strand.lwd = 6,
@@ -25,13 +24,6 @@ visualizeModule(
   highlight.cent.col = FALSE,
   highlight.node = NULL,
   highlight.node.col = NULL,
-=======
-  txdb = TxDb.Mmusculus.UCSC.mm10.knownGene,
-  highlight.centrality,
-  highlight.cent.col,
-  highlight.node = NULL,
-  highlight.node.col,
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
   show.sig.int = TRUE,
   netinfo
 )
@@ -59,7 +51,6 @@ visualizeModule(
 
 \item{txdb}{Character. One of Txdb list obtained from get_txdb().}
 
-<<<<<<< HEAD
 \item{gene.strand.arrow.lwd}{Numeric. Line width of arrowhead indicating the strands of genes. Same as arr.lwd option in Arrows function in shape package.}
 
 \item{gene.strand.lwd}{Numeric. Line width of arrow body indicating the strands of genes. Same as lwd option in Arros function in shape package.}
@@ -68,8 +59,6 @@ visualizeModule(
 
 \item{col.reverse.gene}{Character. Color of arrows within gene track for reverse genes}
 
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \item{highlight.centrality}{Boolean input to set if highlight eigenvector centrality node.}
 
 \item{highlight.cent.col}{The color of arcs stemming from the centrality node.}
@@ -82,19 +71,15 @@ visualizeModule(
 
 \item{netinfo}{Boolean. If TRUE, it shows network information of the module as text in the plot.}
 }
-<<<<<<< HEAD
 \value{
 No return value; the function generates a plot.
 }
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \description{
 It draws a triangle heatmap and arcplot of a module
 }
 \details{
 Visualization of module
 }
-<<<<<<< HEAD
 \examples{
 # A slow example that takes too long to run, wrapped in donttest{}
 \donttest{
@@ -115,8 +100,6 @@ highlight.node=NULL, highlight.node.col=NULL,
 show.sig.int=FALSE, netinfo=FALSE)
 }
 }
-=======
->>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \author{
 Sora Yoon, PhD
 }
