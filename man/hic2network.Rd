@@ -9,9 +9,12 @@ hic2network(ftab)
 \arguments{
 \item{ftab}{three-column data composed of locus1, locus2 and value}
 }
+<<<<<<< HEAD
 \value{
 An \code{igraph} object representing statistically significant chromatin interactions.
 }
+=======
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \description{
 It converts Hi-C dataframe to network object.
 }
@@ -19,6 +22,7 @@ It converts Hi-C dataframe to network object.
 Convert HiC to network data format
 }
 \examples{
+<<<<<<< HEAD
 # This example might take a long time to run, so we wrap it in donttest{}
 \donttest{
 myhic=system.file('extdata', 'example.hic', package ='HiCocietyExample')
@@ -26,6 +30,13 @@ ftab=getContactFrequency(myhic,19,5000);
 net = hic2network(ftab[1:100,]);
 plot(net)
 }
+=======
+# Not run
+# myhic=get_example_hic_file();
+# ftab=getContactFrequency(paste0('./',myhic),19,5000);
+# net = hic2network(ftab[100:200,]);
+# plot(net)
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 \author{
 Sora Yoon, PhD

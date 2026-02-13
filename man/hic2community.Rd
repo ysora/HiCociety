@@ -11,14 +11,22 @@ hic2community(
   nbprob,
   farthest,
   par.noise = 1,
+<<<<<<< HEAD
   network.cluster.method = "louvain",
   n_cores = NULL
+=======
+  network.cluster.method = "louvain"
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 )
 }
 \arguments{
 \item{fname}{Path to .hic file}
 
+<<<<<<< HEAD
 \item{chr}{chromosome numbers to run.}
+=======
+\item{chr}{chromosome numbersto run.}
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 
 \item{resol}{Resolution of Hi-C data}
 
@@ -28,12 +36,16 @@ hic2community(
 
 \item{par.noise}{Parameter for noise removal. Default is 1, higher value gives more filtered interactions.}
 
+<<<<<<< HEAD
 \item{network.cluster.method}{Can select between 'louvain' as default and 'label_prop' which means the label propagation method.}
 
 \item{n_cores}{The number of cores used for parallel computing. If set as NULL, n_cores is automatically set to the number of cores in the computer if it is not exceed 30. If it is more than 30, it is set as 30. Default = NULL}
 }
 \value{
 A \code{list} containing three elements: \code{Graphs} (an \code{igraph} object representing significant chromatin interactions for each chromosome), \code{ModuleSummary} (a \code{data.frame} containing information about chromatin interaction modules), and \code{ModuleElements} (a \code{list} of nodes forming significant chromatin interactions within each module).
+=======
+\item{network.cluster.method}{Can select between 'louvain' as default and 'label.prop' which means the label propagation method.}
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 \description{
 It generates a list of graph of significant interactions, module table and module elements.
@@ -42,12 +54,18 @@ It generates a list of graph of significant interactions, module table and modul
 It generates a list of graph of significant interactions, module table and module elements.
 }
 \examples{
+<<<<<<< HEAD
 # This example might take a long time to run, so we wrap it in donttest{}
 \donttest{
 myhic=system.file('extdata', 'example.hic', package ='HiCocietyExample')
 mycom = hic2community(myhic, "19", 5000, 0.975, 2000000,
 par.noise=1, 'louvain', n_cores=2)
 }
+=======
+# Not run
+# myhic = get_example_hic_file();
+# mycom = hic2community(myhic, "19", 5000, 0.975, 2000000, par.noise=1, 'louvain')
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 \author{
 Sora Yoon, PhD

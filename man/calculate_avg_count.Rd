@@ -23,9 +23,18 @@ This function calculates the average count within a 25kb padding
 around each (x, y) coordinate pair.
 }
 \examples{
+<<<<<<< HEAD
 x <- c(1, 2, 3, 4, 5)
 y <- c(1, 2, 3, 4, 5)
 counts <- c(10, 20, 30, 40, 50)
 resol <- 10000
 calculate_avg_count(x, y, counts, resol)
+=======
+# Nor run
+# x <- c(1, 2, 3, 4, 5)
+# y <- c(1, 2, 3, 4, 5)
+# counts <- c(10, 20, 30, 40, 50)
+# resol <- 10000
+# calculate_avg_count(x, y, counts, resol)
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }

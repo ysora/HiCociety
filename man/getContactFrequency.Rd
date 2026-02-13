@@ -13,9 +13,12 @@ getContactFrequency(fname, chr, resol)
 
 \item{resol}{DNA basepair Resolution. Default=10000}
 }
+<<<<<<< HEAD
 \value{
 A \code{data.frame} containing three columns: \code{x} and \code{y} (genomic coordinate pairs), and \code{counts} (the contact frequency between them).
 }
+=======
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \description{
 Retrieve contact frequency from .hic file using strawR package.
 }
@@ -23,9 +26,15 @@ Retrieve contact frequency from .hic file using strawR package.
 Get Contact Frequncy from .hic file
 }
 \examples{
+<<<<<<< HEAD
 myhic=system.file('extdata', 'example.hic', package ='HiCocietyExample')
 A = getContactFrequency(myhic,19,5000)
 head(print(A))
+=======
+# Not run
+# myhic=get_example_hic_file()
+# getContactFrequency(myhic,19,5000)
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 \author{
 Sora Yoon, PhD

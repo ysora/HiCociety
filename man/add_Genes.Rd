@@ -11,9 +11,12 @@ add_Genes(df, speciesObj)
 
 \item{speciesObj}{Any Txdb package name corresponding}
 }
+<<<<<<< HEAD
 \value{
 A \code{data.frame} identical to the input, with an additional \code{"Genes"} column. Each entry in this column lists the gene(s) that overlap with the corresponding genomic region. If multiple genes are present, they are concatenated with commas.
 }
+=======
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 \description{
 This function adds a column with a list of genes included in each locus to the ModuleSummary data frame of the hic2community function.
 }
@@ -21,11 +24,18 @@ This function adds a column with a list of genes included in each locus to the M
 Adding gene list to ModuleSummary data frame obtained from hic2community function.
 }
 \examples{
+<<<<<<< HEAD
 modulefile = system.file('extdata','mouse_naiveCD4T_Vahedi_short.rds',
 package = 'HiCocietyExample')
 mycom = readRDS(modulefile)
 mycom$ModuleSummary = add_Genes(mycom$ModuleSummary,
 'TxDb.Mmusculus.UCSC.mm10.knownGene')
+=======
+# Not run
+# myhic = get_example_hic_file();
+# mycom = hic2community(myhic, "19", 5000, 0.975, 2000000, par.noise=1, 'louvain')
+# mycom$ModuleSummary = add_Genes(mycom$ModuleSummary, 'TxDb.Mmusculus.UCSC.mm10.knownGene')
+>>>>>>> 3ed519ee94c9f81647aee196f9f42b73ceff4987
 }
 \author{
 Sora Yoon, PhD
